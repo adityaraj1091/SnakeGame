@@ -35,6 +35,7 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener {
     Timer gameLoop;
 
     boolean gameOver = false;
+    boolean isPaused=false;
 
     SnakeGame(int boardWidth, int boardHeight) {
         this.boardWidth = boardWidth;
@@ -90,10 +91,19 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener {
             g.setColor(Color.red);
             g.drawString("Game Over: " + String.valueOf(snakeBody.size()), tileSize - 16, tileSize);
             g.setFont(new Font("Arial",Font.PLAIN,25));
-            g.drawString("Press Space to Restart",tileSize*6,tileSize*12);
+            g.drawString("Enter Space to Restart",tileSize*6,tileSize*12);
         }
         else {
             g.drawString("Score: " + String.valueOf(snakeBody.size()), tileSize - 16, tileSize);
+            if(!isPaused) {
+                g.setFont(new Font("Arial", Font.BOLD, 13));
+                g.drawString("Enter P for Pause", tileSize * 19, tileSize);
+            }
+            if(isPaused){
+                g.setColor(Color.red);
+                g.setFont(new Font("Arial",Font.PLAIN,25));
+                g.drawString("Enter S to Resume",tileSize*8,tileSize*11);
+            }
         }
 	}
 
@@ -157,7 +167,7 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-
+        // System.out.println("KeyEvent: " + e.getKeyCode());
         if(gameOver) {
             if(e.getKeyCode() == KeyEvent.VK_SPACE) {
                 // Reset the game
@@ -171,22 +181,33 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener {
             }
             return;
         }
-        // System.out.println("KeyEvent: " + e.getKeyCode());
-        if (e.getKeyCode() == KeyEvent.VK_UP && velocityY != 1) {
-            velocityX = 0;
-            velocityY = -1;
+        if(e.getKeyCode()==KeyEvent.VK_P){
+            isPaused=true;
+            repaint();
+            gameLoop.stop();
+            return;
         }
-        else if (e.getKeyCode() == KeyEvent.VK_DOWN && velocityY != -1) {
-            velocityX = 0;
-            velocityY = 1;
+        if(e.getKeyCode()==KeyEvent.VK_S){
+            isPaused=false;
+            repaint();
+            gameLoop.start();
+            return;
         }
-        else if (e.getKeyCode() == KeyEvent.VK_LEFT && velocityX != 1) {
-            velocityX = -1;
-            velocityY = 0;
-        }
-        else if (e.getKeyCode() == KeyEvent.VK_RIGHT && velocityX != -1) {
-            velocityX = 1;
-            velocityY = 0;
+
+        if(!isPaused) {
+            if (e.getKeyCode() == KeyEvent.VK_UP && velocityY != 1) {
+                velocityX = 0;
+                velocityY = -1;
+            } else if (e.getKeyCode() == KeyEvent.VK_DOWN && velocityY != -1) {
+                velocityX = 0;
+                velocityY = 1;
+            } else if (e.getKeyCode() == KeyEvent.VK_LEFT && velocityX != 1) {
+                velocityX = -1;
+                velocityY = 0;
+            } else if (e.getKeyCode() == KeyEvent.VK_RIGHT && velocityX != -1) {
+                velocityX = 1;
+                velocityY = 0;
+            }
         }
     }
 
