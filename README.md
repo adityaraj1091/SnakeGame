@@ -5,3 +5,5 @@ You can continue working on this project if you like. One feature you can add is
 ## My Contribution:
 1. Remove the grid lines for better user experience.
 2. add a feature that players can restart the game.
+
+![Image](https://github.com/user-attachments/assets/68ed3fed-ba7b-4b05-9520-565715b86991)
