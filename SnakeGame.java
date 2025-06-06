@@ -1,3 +1,5 @@
+package SnakeGame;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -63,12 +65,6 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener {
 	}
 
 	public void draw(Graphics g) {
-        //Grid Lines
-        for(int i = 0; i < boardWidth/tileSize; i++) {
-            //(x1, y1, x2, y2)
-            g.drawLine(i*tileSize, 0, i*tileSize, boardHeight);
-            g.drawLine(0, i*tileSize, boardWidth, i*tileSize); 
-        }
 
         //Food
         g.setColor(Color.red);
@@ -93,6 +89,8 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener {
         if (gameOver) {
             g.setColor(Color.red);
             g.drawString("Game Over: " + String.valueOf(snakeBody.size()), tileSize - 16, tileSize);
+            g.setFont(new Font("Arial",Font.PLAIN,25));
+            g.drawString("Press Space to Restart",tileSize*6,tileSize*12);
         }
         else {
             g.drawString("Score: " + String.valueOf(snakeBody.size()), tileSize - 16, tileSize);
@@ -159,6 +157,20 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+
+        if(gameOver) {
+            if(e.getKeyCode() == KeyEvent.VK_SPACE) {
+                // Reset the game
+                snakeHead = new Tile(5, 5);
+                snakeBody.clear();
+                velocityX = 0;
+                velocityY = 0;
+                gameOver = false;
+                placeFood();
+                gameLoop.start();
+            }
+            return;
+        }
         // System.out.println("KeyEvent: " + e.getKeyCode());
         if (e.getKeyCode() == KeyEvent.VK_UP && velocityY != 1) {
             velocityX = 0;
