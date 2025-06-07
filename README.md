@@ -6,6 +6,7 @@ You can continue working on this project if you like. One feature you can add is
 1. Remove the grid lines for a better user experience.
 2. Add a feature that players can restart the game.
 3. add a new feature that Player can pause/resume the game.
+4. avoid the overlap of food and snakebody.
 
 ![Image](https://github.com/user-attachments/assets/68ed3fed-ba7b-4b05-9520-565715b86991)
 
