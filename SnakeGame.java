@@ -113,7 +113,7 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener {
 
         //don't place food under the snake body
         for(int i=0;i<snakeBody.size();i++){
-            if(collision(food,snakeBody.get(i)));
+            if(collision(food,snakeBody.get(i)))
                 placeFood();
         }
 
